@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf SYSTEM "%resources%/dtd/doctype.dtd">
+<pdf>
+    <dynamic-page>
+        <div width="100%" height="100%">
+            <table>
+                <tr>
+                    <td>
+                        <div>
+                        <h2>A float: <?= $foo ?></h2>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                        <h2>A string: <?= $bar ?></h2>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </dynamic-page>
+</pdf>

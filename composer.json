@@ -1,0 +1,36 @@
+{
+	"name": "code-kobold/cakephp-pdf-view",
+	"type": "cakephp-plugin",
+	"description": "PDF view plugin for CakePHP.",
+	"keywords": ["PDF", "cakephp", "plugin", "view"],
+	"homepage": "https://github.com/code-kobold/cakephp-pdf-view",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Ron Metten",
+			"role": "Author",
+			"homepage": "http://codetalk.code-kobold.de/"
+		}
+	],
+	"require":{
+		"php": ">=5.4",
+		"cakephp/cakephp": "~3.0",
+        "psliwa/php-pdf": "^1.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"Pdf\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Pdf\\Test\\": "tests",
+			"Cake\\Test\\": "vendor/cakephp/cakephp/tests",
+			"TestApp\\": "tests/TestApp/src"
+		}
+	},
+	"support":{
+		"source": "https://github.com/code-kobold/cakephp-pdf-view",
+		"issues": "https://github.com/code-kobold/cakephp-pdf-view/issues"
+	}
+}
