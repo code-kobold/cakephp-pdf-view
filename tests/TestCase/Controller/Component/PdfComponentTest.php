@@ -16,34 +16,36 @@ use Cake\Event\Event;
  * @author Ron Metten <ccct@code-kobold.de>
  * @license http://opensource.org/licenses/mit-license.php MIT
  */
-class PdfComponentTest extends TestCase {
+class PdfComponentTest extends TestCase
+{
 
     /**
      * @inheritdoc
      */
-	public function setUp() {
-		parent::setUp();
-	}
+    public function setUp()
+    {
+        parent::setUp();
+    }
 
-	/**
+    /**
      * No PDF request
      *
-	 * @return void
-	 */
-	public function testNoPdf() {
-
+     * @return void
+     */
+    public function testNoPdf()
+    {
         $controller = new PdfComponentTestsController(new Request(), new Response());
-		$controller->startupProcess();
-		$this->assertFalse($controller->components()->Pdf->respondAsPdf);
-	}
+        $controller->startupProcess();
+        $this->assertFalse($controller->components()->Pdf->respondAsPdf);
+    }
 
     /**
      * PDF request
      *
      * @return void
      */
-    public function testPdf() {
-
+    public function testPdf()
+    {
         $request = new Request();
         $request->params = [
             'controller' => 'PdfComponentTests',
@@ -62,8 +64,8 @@ class PdfComponentTest extends TestCase {
      *
      * @return void
      */
-    public function testPdfWrongExtension() {
-
+    public function testPdfWrongExtension()
+    {
         $request = new Request();
         $request->params = [
             'controller' => 'PdfComponentTests',
@@ -82,8 +84,8 @@ class PdfComponentTest extends TestCase {
      *
      * @return void
      */
-    public function testSetAutoDetectFalse() {
-
+    public function testSetAutoDetectFalse()
+    {
         $request = new Request();
         $request->params = [
             'controller' => 'PdfComponentTests',
@@ -105,8 +107,8 @@ class PdfComponentTest extends TestCase {
      *
      * @return void
      */
-    public function testAutoDetectSetFalseInConfig() {
-
+    public function testAutoDetectSetFalseInConfig()
+    {
         Configure::write('Pdf.autoDetect', false);
 
         $request = new Request();
@@ -127,8 +129,8 @@ class PdfComponentTest extends TestCase {
      *
      * @return void
      */
-    public function testSetViewvars() {
-
+    public function testSetViewvars()
+    {
         $request = new Request();
         $request->params = [
             'controller' => 'PdfComponentTests',
@@ -148,13 +150,13 @@ class PdfComponentTest extends TestCase {
         $this->assertEquals($resultsInView, $results);
     }
 
-	/**
+    /**
      * Probe viewbuilder
      *
-	 * @return void
-	 */
-	public function testViewbuilder() {
-
+     * @return void
+     */
+    public function testViewbuilder()
+    {
         $request = new Request();
         $request->params = [
             'controller' => 'PdfComponentTests',
@@ -166,10 +168,10 @@ class PdfComponentTest extends TestCase {
         $controller->startupProcess();
 
         $event = new Event('Controller.beforeRender');
-		$controller->components()->Pdf->beforeRender($event);
+        $controller->components()->Pdf->beforeRender($event);
 
-		$this->assertEquals('Pdf', $controller->viewBuilder()->className());
-	}
+        $this->assertEquals('Pdf', $controller->viewBuilder()->className());
+    }
 }
 
 /**
@@ -177,7 +179,8 @@ class PdfComponentTest extends TestCase {
  *
  * @package Pdf\Test\TestCase\Controller\Component
  */
-class PdfComponentTestsController extends Controller {
+class PdfComponentTestsController extends Controller
+{
 
     public function initialize()
     {
@@ -187,13 +190,14 @@ class PdfComponentTestsController extends Controller {
         Request::addDetector('pdf', ['accept' => ['application/pdf'], 'param' => '_ext', 'value' => 'pdf']);
     }
 
-	/**
+    /**
      * Dummy method
      *
-	 * @return void
-	 */
-	public function renderPdf() {
+     * @return void
+     */
+    public function renderPdf()
+    {
 
-	}
+    }
 
 }

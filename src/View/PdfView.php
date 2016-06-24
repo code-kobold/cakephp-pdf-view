@@ -18,10 +18,11 @@ use PHPPdf\DataSource\DataSource;
  * @author Ron Metten <ccct@code-kobold.de>
  * @license http://opensource.org/licenses/mit-license.php MIT
  */
-class PdfView extends View {
+class PdfView extends View
+{
 
-	/**
-	 * Controller variables to provide as View class properties
+    /**
+     * Controller variables to provide as View class properties
      *
      * Possible variables:
      * 'autoLayout'
@@ -38,10 +39,10 @@ class PdfView extends View {
      * 'theme'
      * 'view'
      * 'viewVars'
-	 *
-	 * @var array
-	 */
-	protected $_passedVars = [
+     *
+     * @var array
+     */
+    protected $_passedVars = [
         'autoLayout',
         'ext',
         'helpers',
@@ -58,67 +59,68 @@ class PdfView extends View {
         'viewVars',
     ];
 
-	/**
-	 * View templates subdirectory.
+    /**
+     * View templates subdirectory.
      * /pdf
-	 *
-	 * @var string
-	 */
-	public $subDir = null;
+     *
+     * @var string
+     */
+    public $subDir = null;
 
-	/**
-	 * Layout name for this View.
-	 *
-	 * @var string
-	 */
-	public $layout = false;
+    /**
+     * Layout name for this View.
+     *
+     * @var string
+     */
+    public $layout = '';
 
-	/**
-	 * Constructor
-	 *
-	 * @param Request|null      $request Request instance.
-	 * @param Response|null     $response Response instance.
-	 * @param EventManager|null $eventManager Event manager instance.
-	 * @param array             $viewOptions View options. cf. $_passedVars
-	 */
-	public function __construct(
-		Request $request = null,
-		Response $response = null,
-		EventManager $eventManager = null,
-		array $viewOptions = []
-	) {
-		parent::__construct($request, $response, $eventManager, $viewOptions);
+    /**
+     * Constructor
+     *
+     * @param Request|null $request Request instance.
+     * @param Response|null $response Response instance.
+     * @param EventManager|null $eventManager Event manager instance.
+     * @param array $viewOptions View options. cf. $_passedVars
+     */
+    public function __construct(
+        Request $request = null,
+        Response $response = null,
+        EventManager $eventManager = null,
+        array $viewOptions = []
+    )
+    {
+        parent::__construct($request, $response, $eventManager, $viewOptions);
 
-		if ($this->subDir === null) {
-			$this->subDir = 'pdf';
-			$this->templatePath = str_replace(DS . 'pdf', '', $this->templatePath);
-		}
+        if ($this->subDir === null) {
+            $this->subDir = 'pdf';
+            $this->templatePath = str_replace(DS . 'pdf', '', $this->templatePath);
+        }
 
-		if (isset($response)) {
-			$response->type('pdf');
-		}
+        if (isset($response)) {
+            $response->type('pdf');
+        }
 
         /**
          * Use a custom extension here, to prevent IDE like PHPStorm
          * from complaining about inspections
          */
         $this->_ext = '.xctp';
-	}
+    }
 
-	/**
-	 * Renders a PDF view.
+    /**
+     * Renders a PDF view.
      *
      * Employs Cake\View\View::render() to parse templates,
      * builds the PDF from that result and returns this PDF
-	 * with the response object.
-	 *
-	 * @param string $view   Rendering view.
-	 * @param string $layout Rendering layout.
+     * with the response object.
      *
-	 * @return string Rendered view.
-	 */
-	public function render($view = null, $layout = null) {
-
+     * @param string $view Rendering view.
+     * @param string $layout Rendering layout.
+     *
+     * @return string Rendered view.
+     */
+    public function render($view = null, $layout = null)
+    {
         $pathinfo = pathinfo($this->_getViewFileName());
         $stylesheetName = $pathinfo['dirname'] . DS . $pathinfo['filename'] . '.style.xml';
 
@@ -129,7 +131,7 @@ class PdfView extends View {
         $stylesheet = DataSource::fromString($stylesheetXml);
         $content = $facade->render($content, $stylesheet);
 
-		return $content;
-	}
+        return $content;
+    }
 
 }

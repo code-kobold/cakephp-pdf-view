@@ -12,24 +12,24 @@ Setting up a PDF view in Cakephp3 is quite simple; all it needs is
 * some Initialization in the Controller
 * The registration of the .pdf extension in the Router
 
-In the View, we set a custom extension for the XML templates, to avoid having IDE like PHPStorm complaining about language-related inspections:
+In the View, set a custom extension for the XML templates, to avoid having IDE like PHPStorm complaining about language-related inspections:
 
     $this->_ext = '.xctp';
 
 The PdfComponent detects a PDF request and, if so, sets the PDF View to handle it.
 
-In the Controllers initialize() method, we load the PDFComponent and add a detector for the PDF view:
+In the Controllers initialize() method, load the PDFComponent and add a detector for the PDF view:
 
     public function initialize()
     {
       parent::initialize();
       $this->loadComponent('RequestHandler');
       ...
-      $this->loadComponent('Pdf', ['viewClass' => 'Pdf', 'autoDetect' => true]);
+      $this->loadComponent('Pdf.Pdf', ['viewClass' => 'Pdf', 'autoDetect' => true]);
       Request::addDetector('pdf', ['accept' => ['application/pdf'], 'param' => '_ext', 'value' => 'pdf']);
     }
 
-Finally, add the .pdf extension to your router:
+Finally, add the .pdf extension to our router:
 
     Router::extensions(['pdf']);
 

@@ -15,12 +15,22 @@ use Cake\Event\Event;
  * @author Ron Metten <ccct@code-kobold.de>
  * @license http://opensource.org/licenses/mit-license.php MIT
  */
-class PdfComponent extends Component {
+class PdfComponent extends Component
+{
 
+    /**
+     * @var \Cake\Controller\Controller
+     */
     public $Controller;
 
+    /**
+     * @var bool
+     */
     public $respondAsPdf = false;
 
+    /**
+     * @var array
+     */
     protected $_defaultConfig = [
         'viewClass' => 'Pdf',
         'autoDetect' => true
@@ -32,7 +42,8 @@ class PdfComponent extends Component {
      * @param ComponentRegistry $collection
      * @param array             $config
      */
-    public function __construct(ComponentRegistry $collection, $config = []) {
+    public function __construct(ComponentRegistry $collection, $config = [])
+    {
         $this->Controller = $collection->getController();
 
         $config += $this->_defaultConfig;
@@ -42,8 +53,8 @@ class PdfComponent extends Component {
     /**
      * @inheritdoc
      */
-    public function initialize(array $config = []) {
-
+    public function initialize(array $config = [])
+    {
         if (!$this->_config['autoDetect']) {
             return;
         }
@@ -59,7 +70,8 @@ class PdfComponent extends Component {
      * @param Event $event
      * @return void
      */
-    public function beforeRender(Event $event) {
+    public function beforeRender(Event $event)
+    {
         if (!$this->respondAsPdf) {
             return;
         }
@@ -72,7 +84,9 @@ class PdfComponent extends Component {
      *
      * @return void
      */
-    protected function _respondAsPdf() {
+    protected function _respondAsPdf()
+    {
         $this->Controller->viewBuilder()->className($this->_config['viewClass']);
     }
+
 }

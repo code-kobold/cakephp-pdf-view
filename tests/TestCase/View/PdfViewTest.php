@@ -15,27 +15,29 @@ use Cake\Core\Configure;
  * @author Ron Metten <ccct@code-kobold.de>
  * @license http://opensource.org/licenses/mit-license.php MIT
  */
-class PdfViewTest extends TestCase {
+class PdfViewTest extends TestCase
+{
 
     protected $foo = 3.14159265;
 
     protected $bar = 'baz';
 
-	/**
-	 *
-	 * @return void
-	 */
-	public function setUp() {
-		parent::setUp();
-	}
+    /**
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+    }
 
-	/**
-	 * @return void
-	 */
-	public function testRender() {
-
-		$request = new Request();
-		$response = new Response();
+    /**
+     * @return void
+     */
+    public function testRender()
+    {
+        $request = new Request();
+        $response = new Response();
         $eventManager = new \Cake\Event\EventManager();
 
         $viewOptions = [
@@ -61,20 +63,19 @@ class PdfViewTest extends TestCase {
             $this->bar,
             $result
         );
-	}
+    }
 
-	public function testRenderFromController() {
+    public function testRenderFromController()
+    {
+        $request = new Request();
+        $response = new Response();
+        $controller = new PdfComponentTestsController($request, $response);
 
-		$request = new Request();
-		$response = new Response();
-		$controller = new PdfComponentTestsController($request, $response);
+        $controller->viewBuilder()->className('Pdf.Pdf');
+        $controller->viewBuilder()->template('render_pdf');
+        $controller->renderPdf();
 
-		$controller->viewBuilder()->className('Pdf.Pdf');
-		$controller->viewBuilder()->template('render_pdf');
-		$controller->viewBuilder()->templatePath('PdfComponentTests');
-		$controller->renderPdf();
-
-		$result = $controller->render();
+        $result = $controller->render();
         $this->assertContains(
             (string)$this->foo,
             $result->body()
@@ -84,11 +85,12 @@ class PdfViewTest extends TestCase {
             $this->bar,
             $result->body()
         );
-	}
+    }
 }
 
 
-class PdfComponentTestsController extends Controller {
+class PdfComponentTestsController extends Controller
+{
 
     public function initialize()
     {
@@ -101,7 +103,8 @@ class PdfComponentTestsController extends Controller {
     /**
      * @return void
      */
-    public function renderPdf() {
+    public function renderPdf()
+    {
         $foo = 3.14159265;
         $bar = 'baz';
 
